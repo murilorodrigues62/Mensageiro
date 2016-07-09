@@ -8,23 +8,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-import br.edu.ifspsaocarlos.sdm.trabalhofinal.view.CadastroActivity;
-import br.edu.ifspsaocarlos.sdm.trabalhofinal.model.Contato;
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.R;
+import br.edu.ifspsaocarlos.sdm.trabalhofinal.model.Contato;
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.view.MensagemActivity;
 
 public class BuscaNovasMensagens extends Service implements Runnable  {
@@ -128,7 +127,7 @@ public class BuscaNovasMensagens extends Service implements Runnable  {
                                         if(data.getInt("id") >= ultimoNumeroMensagem){
                                             Log.e("SDM", "NOVA MENSAGEM"+data.getInt("id")+" - "+novoNumeroMensagem+" - "+ultimoNumeroMensagem);
                                             if(data.getInt("id") >= ultimoNumeroMensagem){
-                                                ultimoNumeroMensagem = data.getInt("id");
+                                                ultimoNumeroMensagem = data.getInt("id")+1;
                                             }
                                             for (int i = 0; i < mensagens.length();i++){
                                                 //monta a notificação para as mensanges encontradas

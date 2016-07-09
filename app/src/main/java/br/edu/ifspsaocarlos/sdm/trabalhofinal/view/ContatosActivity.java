@@ -34,6 +34,7 @@ import java.util.Comparator;
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.R;
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.adapter.ListaContatoAdapter;
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.model.Contato;
+import br.edu.ifspsaocarlos.sdm.trabalhofinal.service.BuscaNovasMensagens;
 
 public class ContatosActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
@@ -66,9 +67,9 @@ public class ContatosActivity extends AppCompatActivity implements AdapterView.O
             startActivity(listaContatos);
         }
 
-        serviceIntent = new Intent("BUSCAR_NOVA_MENSAGEM_SERVICE");
+        Intent serviceIntent = new Intent(this,BuscaNovasMensagens.class);
 
-        startService(serviceIntent);
+        this.startService(serviceIntent);
 
         //monta a estrutura do menu
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
