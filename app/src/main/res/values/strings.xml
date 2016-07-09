@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">TrabalhoFinal</string>
+    <string name="app_name">Mensageiro</string>
 
     <!--TELA DE USUÁRIO-->
     <string name="textCadastro">Cadastrar Usuário</string>
@@ -17,5 +17,15 @@
         <item>Contatos</item>
     </string-array>
 
-
+    <!-- LISTA E ENVIO DE MENSAGENS -->
+    <string name="msg_nome">Digite um nome para o usuário por favor.</string>
+    <string name="msg_apelido">Digite um apelido para o usuário por favor.</string>
+    <string name="msg_cadastro_sucesso">Usuário cadastrado com sucesso!!</string>
+    <string name="msg_cadastro_erro">Erro ao cadastrar o usuário, tente novamente dentro de alguns instantes por favor.</string>
+    <string name="edtMensagem">Escreva uma mensagem</string>
+    <string name="btnEnviar">Enviar</string>
+    <string name="edtAssunto">Assunto</string>
+    <string name="msg_mensagem_enviada">Mensagem enviada!</string>
+    <string name="msg_mensagem_erro">Erro no envio da mensagem!</string>
+    <string name="msg_json_erro">Erro na conversão de objeto JSON!</string>
 </resources>

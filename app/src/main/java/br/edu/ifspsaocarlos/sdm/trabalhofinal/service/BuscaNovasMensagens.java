@@ -6,11 +6,9 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.BitmapFactory;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.View;
-import android.widget.Toast;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,11 +20,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
-import br.edu.ifspsaocarlos.sdm.trabalhofinal.CadastroActivity;
-import br.edu.ifspsaocarlos.sdm.trabalhofinal.Contato;
+import br.edu.ifspsaocarlos.sdm.trabalhofinal.view.CadastroActivity;
+import br.edu.ifspsaocarlos.sdm.trabalhofinal.model.Contato;
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.R;
 public class BuscaNovasMensagens extends Service implements Runnable  {
     private boolean appAberta;
