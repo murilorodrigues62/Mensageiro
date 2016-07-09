@@ -67,8 +67,8 @@ public class ContatosActivity extends AppCompatActivity implements AdapterView.O
         }
 
         serviceIntent = new Intent("BUSCAR_NOVA_MENSAGEM_SERVICE");
-        // TODO: 09/07/16 Desfazer 
-//        startService(serviceIntent); 
+
+        startService(serviceIntent);
 
         //monta a estrutura do menu
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
