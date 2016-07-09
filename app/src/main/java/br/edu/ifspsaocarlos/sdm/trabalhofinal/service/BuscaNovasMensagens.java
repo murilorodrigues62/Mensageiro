@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,10 +19,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.view.CadastroActivity;
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.model.Contato;
 import br.edu.ifspsaocarlos.sdm.trabalhofinal.R;
+import br.edu.ifspsaocarlos.sdm.trabalhofinal.view.MensagemActivity;
+
 public class BuscaNovasMensagens extends Service implements Runnable  {
     private boolean appAberta;
     private boolean primeiraBusca;
@@ -35,6 +38,10 @@ public class BuscaNovasMensagens extends Service implements Runnable  {
     private static ArrayList<Contato> listaContatosNova;
     private static SharedPreferences sharedPref;
     private static SharedPreferences.Editor editor;
+    private static JSONObject data;
+    private static JSONArray mensagens;
+    private static String urlMensagem;
+    private static RequestQueue queue ;
 
     public BuscaNovasMensagens() {
 
@@ -50,11 +57,9 @@ public class BuscaNovasMensagens extends Service implements Runnable  {
         primeiraBusca = true;
         ultimoNumeroContatos = 0;
         ultimoNumeroMensagem = 0;
-        novoNumeroMensagem = 1;
+        novoNumeroMensagem = 0;
         listaContatos = new ArrayList<Contato>();
-        listaContatos = new ArrayList<Contato>();
-
-
+        queue = Volley.newRequestQueue(BuscaNovasMensagens.this);
 
         sharedPref = getApplicationContext().getSharedPreferences("PrefId",MODE_PRIVATE);
         editor = sharedPref.edit();
@@ -76,14 +81,14 @@ public class BuscaNovasMensagens extends Service implements Runnable  {
                     Thread.sleep(3000);
                     buscaContatos();
                     Thread.sleep(2000);
+                    // novoNumeroMensagem = ultimoNumeroMensagem+1;
 
-                    novoNumeroMensagem = ultimoNumeroMensagem;
-                      for(Contato c: listaContatos) {
-                        buscaMensagens(c.getId());
-                        Thread.sleep(100);
+                    for(Contato c: listaContatos) {
+                        buscaMensagens(c.getId(),primeiraBusca);
                     }
                     primeiraBusca = false;
-                    ultimoNumeroMensagem = novoNumeroMensagem;
+                    //ultimoNumeroMensagem = novoNumeroMensagem;
+                    Log.e("SDM", "PASSOU POR AQUI");
                 }else {
                     editor = sharedPref.edit();
                     id = sharedPref.getString("id_usuario", "0");
@@ -92,83 +97,83 @@ public class BuscaNovasMensagens extends Service implements Runnable  {
                 Log.e("SDM", "Erro na thread de recuperação de mensagens");
             }
         }
-   }
+    }
 
-    private void buscaMensagens(int id_origem){
-        RequestQueue queue = Volley.newRequestQueue(BuscaNovasMensagens.this);
-        final int ultima_mensagem = ultimoNumeroMensagem+1;
-            String url = getString(R.string.urlBase) + "mensagem/"+ultima_mensagem+"/"+id_origem+"/"+id;
-            final Integer id_usuario = Integer.parseInt(id);
-            try{
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
-                        Request.Method.GET,
-                        url,
-                        null,
-                        new Response.Listener<JSONObject>() {
-                            public void onResponse(JSONObject s) {
-                                //chama o adaptador
-                                try{
+    private void buscaMensagens(int id_origem,boolean primeiraVez){
+        // final int ultima_mensagem = ultimoNumeroMensagem+1;
+        urlMensagem = getString(R.string.urlBase) + "mensagem/"+(ultimoNumeroMensagem+1)+"/"+id_origem+"/"+id;
+        final Integer id_usuario = Integer.parseInt(id);
+        final boolean primeiraTentativa = primeiraVez;
 
-                                    JSONArray mensagens = (JSONArray)s.getJSONArray("mensagens");
-                                    if(mensagens.length() > 0){
-                                        JSONObject data = mensagens.getJSONObject(mensagens.length()-1);
-                                        //caso seja a primeira busca a ultima mensagem que já chegou pra ele
-                                        if(primeiraBusca){
-                                            Log.e("SDM", Integer.toString(data.getInt("id")));
-                                            if(data.getInt("id") >= novoNumeroMensagem){
-                                                novoNumeroMensagem = data.getInt("id");
+        try{
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.GET,
+                    urlMensagem,
+                    null,
+                    new Response.Listener<JSONObject>() {
+                        public void onResponse(JSONObject s) {
+                            //chama o adaptador
+                            try{
+                                mensagens = (JSONArray)s.getJSONArray("mensagens");
+                                if(mensagens.length() > 0){
+                                    data = mensagens.getJSONObject(mensagens.length()-1);
+                                    //caso seja a primeira busca a ultima mensagem que já chegou pra ele
+                                    Log.e("SDM", "bbbb");
+                                    if(primeiraTentativa){
+                                        Log.e("SDM", "AAA"+data.getInt("id"));
+                                        if(data.getInt("id") >= ultimoNumeroMensagem){
+                                            ultimoNumeroMensagem = data.getInt("id");
+                                        }
+                                    }else{ //verifica qual vai ser a nova ultima mensagem e guarda as notificações para exibir
+                                        if(data.getInt("id") >= ultimoNumeroMensagem){
+                                            Log.e("SDM", "NOVA MENSAGEM"+data.getInt("id")+" - "+novoNumeroMensagem+" - "+ultimoNumeroMensagem);
+                                            if(data.getInt("id") >= ultimoNumeroMensagem){
+                                                ultimoNumeroMensagem = data.getInt("id");
                                             }
-                                        }else{ //verifica qual vai ser a nova ultima mensagem e guarda as notificações para exibir
-                                            if(data.getInt("id") >= ultima_mensagem){
-                                                if(data.getInt("id") >= novoNumeroMensagem){
-                                                    novoNumeroMensagem = data.getInt("id");
-                                                }
+                                            for (int i = 0; i < mensagens.length();i++){
+                                                //monta a notificação para as mensanges encontradas
+                                                JSONObject noti = mensagens.getJSONObject(i);
+                                                NotificationManager nm = (NotificationManager)
+                                                        getSystemService(NOTIFICATION_SERVICE);
+                                                Intent intent = new Intent(BuscaNovasMensagens.this, MensagemActivity.class);
+                                                intent.putExtra("id_destino",noti.getInt("origem_id"));
+                                                PendingIntent p = PendingIntent.getActivity(BuscaNovasMensagens.this, 0, intent, 0);
+                                                Notification.Builder builder = new Notification.Builder(BuscaNovasMensagens.this);
+                                                builder.setSmallIcon(R.mipmap.ic_launcher);
+                                                builder.setTicker("Nova Mensagem");
+                                                builder.setContentTitle(noti.getString("assunto"));
+                                                builder.setContentText(noti.getString("corpo"));
+                                                builder.setWhen(System.currentTimeMillis());
+                                                builder.setContentIntent(p);
 
-                                                for (int i = 0; i < mensagens.length();i++){
-                                                    Log.e("SDM", "NOVA MENSAGEM");
-                                                    JSONObject noti = mensagens.getJSONObject(i);
-                                                    NotificationManager nm = (NotificationManager)
-                                                            getSystemService(NOTIFICATION_SERVICE);
-                                                    Intent intent = new Intent(BuscaNovasMensagens.this, CadastroActivity.class);
-                                                    intent.putExtra("id_contato",noti.getInt("origem_id"));
-                                                    PendingIntent p = PendingIntent.getActivity(BuscaNovasMensagens.this, 0, intent, 0);
-                                                    Notification.Builder builder = new Notification.Builder(BuscaNovasMensagens.this);
-                                                    builder.setSmallIcon(R.mipmap.ic_launcher);
-                                                    builder.setTicker("Nova Mensagem");
-                                                    builder.setContentTitle(noti.getString("assunto"));
-                                                    builder.setContentText(noti.getString("corpo"));
-                                                    builder.setWhen(System.currentTimeMillis());
-                                                    builder.setContentIntent(p);
-
-                                                    Notification notification = builder.build();
-                                                    notification.vibrate = new long[] {100, 250};
-                                                    nm.notify(R.mipmap.ic_launcher, notification);
-                                                }
-
-                                                mensagens = null;
-                                                data = null;
+                                                Notification notification = builder.build();
+                                                notification.vibrate = new long[] {100, 250};
+                                                nm.notify(R.mipmap.ic_launcher, notification);
                                             }
+
+                                            mensagens = null;
+                                            data = null;
                                         }
                                     }
-                                }catch (JSONException je) {
-                                    Log.e("SDM", "Erro na thread de recuperação de mensagens");
                                 }
+                            }catch (JSONException je) {
+                                Log.e("SDM", "Erro na thread de recuperação de mensagens");
+                            }
 
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            public void onErrorResponse(VolleyError volleyError) {
-                                Log.e("SDM", "Erro na thread de recuperação de mensagens3333");
-                            }
-                        });
-                queue.add(jsonObjectRequest);
-            }catch(Exception e) {
-                Log.e("SDM", "Erro na thread de recuperação de mensagens44444");
-            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        public void onErrorResponse(VolleyError volleyError) {
+                            Log.e("SDM", "Erro na thread de recuperação de mensagens3333");
+                        }
+                    });
+            queue.add(jsonObjectRequest);
+        }catch(Exception e) {
+            Log.e("SDM", "Erro na thread de recuperação de mensagens44444");
+        }
     }
 
     private void buscaContatos(){
-        RequestQueue queue = Volley.newRequestQueue(BuscaNovasMensagens.this);
         String url = getString(R.string.urlBase) + "/contato";
         final Integer id_usuario = Integer.parseInt(id);
         try{
@@ -184,7 +189,7 @@ public class BuscaNovasMensagens extends Service implements Runnable  {
                                 //caso seja a primeira busca ou os contatos sejam diferentes
                                 if(primeiraBusca || ultimoNumeroContatos != contatos.length()){
                                     //limpa a lista
-
+                                    listaContatos.clear();
 
                                     for(int i=ultimoNumeroContatos;i<contatos.length();i++){
                                         JSONObject data = contatos.getJSONObject(i);
