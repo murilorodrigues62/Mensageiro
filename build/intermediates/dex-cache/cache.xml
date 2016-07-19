@@ -1,2 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="826bfec2f4c0ccbb86ec24356cd9fac250188df3">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_53552c40fcbe867bfdc94e70e8b2feb85d518204/classes.dex" />
+    </item>
+    <item
+        jar="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="67bd36ee9340ec7c254108936ad16b24bed160cc">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-23.4.0_dbc3be3e129dcc5f39192f54d69b1518ded08e45/classes.dex" />
+    </item>
+    <item
+        jar="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="de4db3785756bfb0915a9f59a9b3f2fea7407be4">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-23.4.0_02050dfdc90eb2c0a15ccbf84a5e31b9e5f0e728/classes.dex" />
+    </item>
+    <item
+        jar="/root/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/23.4.0/support-annotations-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ffbe55fdb2bb456b1485831706a9eac3300bb6b8">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-23.4.0_f6239821904b8bd6abe8ab66c1e2e11c76623210/classes.dex" />
+    </item>
+    <item
+        jar="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="414e66b00ec8dad559f397756be023399ad61222">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_d1814f54af36bc5dfceb562797baa90062f5d9e2/classes.dex" />
+    </item>
+    <item
+        jar="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/libs/volley.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="d779c8f5d2381f1416153dee7f3d40337558bc90">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/2/volley_f8cdbc66421437ec0ffb3200662fe4b4db886230/classes.dex" />
+    </item>
+    <item
+        jar="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="c2c594cace5d83a3227b2b6e658ecbfd586d3ed9">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-23.4.0_dc0d0deef13650d7c339eca0f88df0d329561a61/classes.dex" />
+    </item>
+    <item
+        jar="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.4.0/jars/libs/internal_impl-23.4.0.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="ea3c07504d2c8f4b13aa17c45c1b68ed9c1c3674">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-23.4.0_38661514fef5fb11b84c27136c0a4a5fe2995d78/classes.dex" />
+    </item>
+    <item
+        jar="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.4.0/jars/classes.jar"
+        jumboMode="true"
+        revision="23.0.2"
+        sha1="548f06de403a9409f00554b3ee12a9fdea0e236c">
+        <dex dex="/media/rodrigues/Arquivos/Google Drive/IFSP/PA2P2 - Programacao Android II/exercicios/Mensageiro/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-23.4.0_d19637228735f9a48cd47ee040ceba7c0a49743e/classes.dex" />
+    </item>
+
+</items>
